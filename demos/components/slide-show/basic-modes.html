@@ -1,0 +1,77 @@
+<!--
+Shows a single child element at a time.
+
+This simple class handles a very common user interface pattern in the contents
+shown in part (or all) of the page/screen depends on a mode or state. The state
+could:
+
+* Be directly driven by user activity (the user selects an item somewhere
+else that sets the mode)
+* Be implicitly driven by user activity (e.g., the user asked to start a process,
+and the process goes through a sequence of states)
+* Reflect the state of the account/device/network/etc (e.g., an offline mode vs.
+an online mode).
+
+Here the modes are represented by child elements, only one of which will be
+shown at a time. By default, the first child (mode) is shown.
+
+The basic-modes class is useful as a base class for other forms of navigation
+between modes/states. This element provides no user interface of its own for
+switching modes. For some common user interface patterns, consider other
+elements which use basic-modes, such as basic-sequence-navigator or basic-
+slideshow. The subclass basic-sequence derives from basic-elements, adding
+transitional effects.
+
+Like other Basic Web Components, basic-modes element can handle distributed
+content. That is, if you place a content element inside a basic-modes, the
+latter will consider the elements distributed to the content element (rather
+than the content element itself) as the set of modes.
+
+@element basic-modes
+@demo http://basic-web-components.github.io/components/basic-modes/
+-->
+<!--
+TODO: Contain a core-selector rather than inherit from it? This would help
+avoid cases like multi-selection being turned on.
+-->
+
+<link rel="import" href="basic-selector.html">
+
+<polymer-element name="basic-modes" extends="basic-selector">
+<template>
+  <style>
+  :host {
+    display: block;
+    overflow: hidden;
+    position: relative;
+  }
+
+  polyfill-next-selector {
+    content: ':not(.core-selected)';
+  }
+  ::content :not(.core-selected) {
+    display: none;
+  }
+  </style>
+  <shadow></shadow>
+</template>
+
+<script>
+Polymer( "basic-modes", {
+
+  attached: function() {
+    // By default, the first mode is selected.
+    if ( !this.selected ) {
+      this.selected = 0;
+    }
+  },
+
+  ready: function() {
+    this.super();
+    this.notap = true; /* Disable core-selector's click-to-select feature */
+  }
+
+});
+</script>
+
+</polymer-element>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="../../../bower_components/platform/platform.js"></script>
+<link rel="import" href="my-element.html">
+  <meta charset="utf-8">
+  <title>Scoped styling</title>
+    <style>
+    body  { 
+      font-family: "RobotoDraft" , "Helvetica Neue", Helvetica, Arial, sans-serif; 
+      background: #DCE4F1;
+    }
+    #message { color: blue; font-size: 30px; }
+    h1 { float: right; margin: 50px;}
+  </style>
+</head>
+<body>
+
+  <!-- Use my element -->
+  <my-element></my-element>
+
+  <div id="message">
+    Messages should be blue.
+  </div>
+
+  <h1>Outside the element</h1>
+
+</body>
+</html>

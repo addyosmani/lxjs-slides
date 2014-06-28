@@ -1,0 +1,65 @@
+.sparse-gray {
+	background: #eee;
+}
+
+.sparse-blue {
+	background: #4285F4;
+}
+
+.baby-blue {
+	background: #5A85F1;
+}
+
+.sparse-dark-blue {
+	background: #3367D6;
+}
+
+/* Scheme 7 */
+.blue-700 {
+	background: #0288D1;
+}
+
+.blue-500 {
+	background: #03A9F4;
+}
+
+.lightblue-100 {
+	background: #B3E5FC;
+}
+
+/* Scheme 7 **/
+.indigo-700 {
+	background: #3F51B5;
+}
+
+.indigo-500 {
+	background: #3F51B5;
+}
+
+.indigo-100 {
+	background: #C5CAE9;
+}
+
+.pink-a200 {
+	background: #FF4081;
+}
+
+.pink-a200-text {
+	color: #FF4081;
+}
+
+.pink-400-headline {
+	background: #CA3668;
+	width:100%;
+	color: white;
+	display: inline-block;
+	line-height: 50px;padding-left: 20px;
+}
+
+.pink-400 {
+	background: #FC4482;
+}
+
+.pink-400 a, .pink-400 h2{
+	color: white;
+}

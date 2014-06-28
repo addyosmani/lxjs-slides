@@ -1,0 +1,43 @@
+<html>
+	<head>
+    <script src="../../../bower_components/platform/platform.js"></script>
+    <link rel="import" href="../../../bower_components/core-media-query/core-media-query.html" />
+
+	</head>
+	<body>
+  <polymer-element name="match-example" noscript>
+    <template>
+      <style>
+      img { max-width: 100%; }
+      </style>
+      <core-media-query query="max-width: 40em" queryMatches="{{phone}}"></core-media-query>
+
+      <core-media-query query="(min-width: 40.063em) and (max-width: 60em)" queryMatches="{{tablet}}"></core-media-query>
+
+      <core-media-query query="(min-width: 60.063em) and (max-width: 70em)" queryMatches="{{desktop}}"></core-media-query>
+
+      <core-media-query query="(min-width: 70.063em) and (max-width: 120em)" queryMatches="{{largescreen}}"></core-media-query>
+
+      <template if="{{phone}}">
+      <img src="images/mona2.png">
+      </template>
+
+      <template if="{{tablet}}">
+      <img src="images/mona3.png">
+      </template>
+
+      <template if="{{desktop}}">
+      <img src="images/mona4.jpg">
+      </template>
+
+      <template if="{{largescreen}}">
+      <img src="images/mona1.png">
+      </template>
+    </template>
+  </polymer-element>
+
+  <match-example id="me"></match-example>
+  <pre id="output">
+  </pre>
+</body>
+</html>

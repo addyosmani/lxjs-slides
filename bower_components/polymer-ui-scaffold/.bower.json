@@ -1,0 +1,22 @@
+{
+  "name": "polymer-ui-scaffold",
+  "private": true,
+  "dependencies": {
+    "polymer-ui-menu-item": "Polymer/polymer-ui-menu-item#master",
+    "polymer-ui-menu-button": "Polymer/polymer-ui-menu-button#master",
+    "polymer": "Polymer/polymer#master",
+    "polymer-grid-layout": "Polymer/polymer-grid-layout#master",
+    "polymer-ui-toolbar": "Polymer/polymer-ui-toolbar#master",
+    "polymer-ui-icon-button": "Polymer/polymer-ui-icon-button#master"
+  },
+  "homepage": "https://github.com/Polymer/polymer-ui-scaffold",
+  "_release": "a08832fe10",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "a08832fe102d4651b0bef3df2a6e6e926f961cbd"
+  },
+  "_source": "git://github.com/Polymer/polymer-ui-scaffold.git",
+  "_target": "master",
+  "_originalSource": "Polymer/polymer-ui-scaffold"
+}

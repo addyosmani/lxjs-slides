@@ -1,0 +1,19 @@
+{
+  "name": "lxjs-slides",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer-elements": "Polymer/polymer-elements#master",
+    "polymer-ui-elements": "Polymer/polymer-ui-elements#master",
+    "web-animations-js": "web-animations/web-animations-js#master",
+    "core-elements": "Polymer/core-elements#master"
+  }
+}

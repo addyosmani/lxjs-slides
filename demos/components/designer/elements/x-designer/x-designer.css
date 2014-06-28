@@ -1,0 +1,18 @@
+﻿:host {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  outline: 0;
+  -webkit-user-select: none;
+}
+
+#canvas {
+  background-color: white;
+}
+
+#canvas .selected-element {
+  outline: solid 3px rgba(66, 87, 203, 0.8);
+  outline-offset: -3px;
+}

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="../../../bower_components/platform/platform.js"></script>
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/core-input/core-input.html">
+<style>
+  body {
+    font-family: 'Roboto';
+  }
+</style>
+  <meta charset="utf-8">
+  <title>Lego man</title>
+  
+</head>
+<body>
+  
+<polymer-element name="lego-man" attributes="colorShirt">
+    <template>
+<style>*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+*:before,
+*:after {
+  position: absolute;
+  content: '';
+  display: block;
+}
+
+/* Yellow */
+/* Dark Yellow */
+/* Blue */
+/* Gray */
+/* Dark Gray */
+/* Red */
+/* Dark Red */
+/* Black */
+body {
+  background: #f9f9f0;
+}
+
+#head {
+  width: 103px;
+  height: 83px;
+  background: #f9df1c;
+  margin: 50px auto 0;
+  border-radius: 25px / 20px;
+  box-shadow: 0 -44px 0 -28px #ecd107, 0 32px 0 -22px #ecd107;
+  position: relative;
+  /* Eyes */
+  /* Mouth */
+}
+#head:before {
+  background: #303030;
+  width: 13px;
+  height: 13px;
+  top: 24px;
+  left: 28px;
+  border-radius: 100%;
+  box-shadow: 33px 0 0 0 #303030;
+}
+#head:after {
+  top: 50px;
+  left: 32px;
+  width: 38px;
+  height: 10px;
+  border: 5px solid #303030;
+  border-top: 0;
+  border-radius: 0 0 20px 20px / 0 0 10px 10px;
+  -webkit-animation: smile 2s infinite alternate backwards;
+}
+  
+
+#body {
+  margin: 22px auto 0;
+  width: 158px;
+  border-bottom: 116px solid #1f2036;
+  border-left: 22px solid transparent;
+  border-right: 22px solid transparent;
+  position: relative;
+  /* Top Collar */
+  /* Design */
+}
+#body:before {
+  top: -12px;
+  left: 0px;
+  background: #1f2036;
+  border-radius: 20px 20px 0 0;
+  height: 12px;
+  width: 114px;
+}
+#body:after {
+  width: 75px;
+  height: 75px;
+  border-radius: 100%;
+  margin: auto;
+  background: #cccccc;
+  top: 10px;
+  right: 0;
+  left: 0;
+}
+
+/* 4 Bars */
+#codepen {
+  z-index: 4;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  margin: auto;
+  top: 24px;
+  left: 0;
+  right: 0;
+}
+
+.arm {
+  position: absolute;
+  z-index: -1;
+  width: 40px;
+  height: 77px;
+  border-radius: 60px 30px 0 0;
+  background: #cccccc;
+  top: -8px;
+  /* Lower Sleeve */
+  /* Inner Sleeve Shadow */
+}
+.arm:before {
+  width: 41px;
+  background: inherit;
+  top: 70px;
+  left: 5px;
+  height: 42px;
+}
+.arm:after {
+  border-radius: 100%;
+  height: 12px;
+  width: 40px;
+  background: #7f8c8d;
+  top: 105px;
+  left: 11px;
+}
+.arm#left {
+  left: -40px;
+  transform: rotate(27deg);
+/*  -webkit-animation: handwaveleft 1s infinite alternate backwards;*/
+}
+
+.arm#left:hover {
+ transform: rotate(150deg) rotate(26deg);
+}
+  
+.arm#left:before {
+  transform: rotate(-16deg);
+}
+.arm#left:after {
+  transform: rotate(-16deg);
+}
+.arm#left .hand {
+  transform: rotate(-16deg);
+}
+.arm#right {
+  right: -40px;
+  transform: rotateY(180deg) rotate(27deg);
+ /*  -webkit-animation: handwaveright 1s infinite alternate backwards;*/
+}
+.arm#right:before {
+  transform: rotate(-16deg);
+}
+.arm#right:after {
+  transform: rotate(-16deg);
+}
+.arm#right .hand {
+  transform: rotate(-16deg);
+}
+
+.hand {
+  z-index: 5;
+  top: 120px;
+  left: 16px;
+  width: 50px;
+  height: 52px;
+  border-radius: 100%;
+  border-style: solid;
+  border-color: #f9df1c #f9df1c transparent;
+  border-width: 12px 10px 10px;
+  position: relative;
+  /* Finger Tips */
+  /* Wrists */
+}
+.hand:before {
+  border-radius: inherit;
+  background: #f9df1c;
+  height: 10px;
+  width: 10px;
+  top: 25px;
+  left: -3px;
+  box-shadow: 26px 0 0 0 #f9df1c;
+}
+.hand:after {
+  background: #f9df1c;
+  height: 24px;
+  width: 30px;
+  border-radius: 60px / 20px;
+  top: -25px;
+  left: 0px;
+}
+
+#pants {
+  background: #9f499b;
+  height: 24px;
+  width: 158px;
+  position: relative;
+  margin: 0 auto;
+  box-shadow: 0 24px 0 0 #7986cb, 0 48px 0 0 #7986cb;
+}
+#pants:before {
+  background: inherit;
+  height: 50px;
+  border-radius: 0 0 5px 5px;
+  width: 18px;
+  top: 22px;
+  left: 70px;
+}
+#pants:after {
+  top: 72px;
+  width: 76px;
+  height: 68px;
+  background: inherit;
+  box-shadow: 82px 0 0 0 #9f499b, 82px 6px 0 0 #7986cb, 82px 22px 0 0 #9f499b, 0 6px 0 0 #7986cb, 0 22px 0 0 #9f499b;
+}
+  
+@-webkit-keyframes handwaveleft {
+  0%   { left: -40px; transform: rotate(127deg); }
+  100% { transform: rotate(150deg) rotate(26deg); }
+}
+ 
+  
+@-webkit-keyframes handwaveright {
+  0%   {  right: -40px; transform: rotateY(180deg) rotate(127deg); }
+  100% {   right: -40px;transform: rotateY(180deg) rotate(170deg); }
+}
+  
+@-webkit-keyframes smile {
+  0% {
+    
+  }
+  100% {
+top: 50px;
+left: 32px;
+width: 38px;
+height: 13px;
+border: 19px solid #303030;
+border-top: 0;
+border-radius: 0 0 20px 20px / 0 0 10px 10px;
+background: black;
+border-bottom: 7px solid red;     
+  }
+}
+  
+
+  
+</style></head><body>
+<div id='head'></div>
+<div id='body' style="border-bottom-color: {{colorShirt}}">
+
+  <div class='arm' id='left'>
+    <div class='hand'></div>
+  </div>
+    <div class='arm' id='right'>
+    <div class='hand'></div>
+  </div>
+  <div id='codepen'>
+    <img width="54px" src='../../../images/polymer/p-logo.svg'>
+  </div>
+</div>
+<div id='pants' style="background:{{colorPants}}"></div>
+
+<p>
+
+<!--
+Pants: <input type="text" id="pants" value="{{colorPants}}">
+-->
+<span style='font-size:50px'>
+Shirt: <input type="text" id="shirt" value="{{colorShirt}}">
+<p><small>I hear he likes hotpink.</small></p>
+</span>
+
+<audio id="audio" src="../../../media/awesome.mp3"></audio>
+</p>
+
+    </template>
+    <script>
+    Polymer('lego-man', {
+      colorPants: '#9f499b',
+      colorShirt: '#1f2036',
+      colorShirtChanged: function(){
+
+        this.colorShirt = this.colorShirt || '#1f2036';
+
+
+
+        if(this.colorShirt === 'hotpink'){
+
+          var css = '#body:before { background: ' + this.colorShirt +' } .arm#left {   -webkit-animation: handwaveleft 0.5s infinite alternate backwards;} .arm#right { -webkit-animation: handwaveright 0.5s infinite alternate backwards;} ',
+              head = this.shadowRoot,
+              style = document.createElement('style');
+
+          style.type = 'text/css';
+          if (style.styleSheet){
+            style.styleSheet.cssText = css;
+          } else {
+            style.appendChild(document.createTextNode(css));
+          }
+
+          head.appendChild(style);
+
+          this.$.audio.play();
+        }
+
+        // this.colorShirt
+       // console.log(this.$.body.querySelector(':before'));
+        //this.ownerDocument.styleSheets[0].addRule('body:before','background: "'+this.colorShirt+'";');
+      }
+    }); 
+    </script>
+  </polymer-element>
+
+  <lego-man></lego-man>
+</body>
+</html>

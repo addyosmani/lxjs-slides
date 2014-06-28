@@ -1,0 +1,34 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../bower_components/core-icons/core-icons.html">
+<link rel="import" href="../bower_components/core-icons/iconsets/image-icons.html">
+<link rel="import" href="../bower_components/core-icons/iconsets/av-icons.html">
+
+
+<polymer-element name="audio-player" attributes="mp3 ogg">
+  <template>
+    <paper-fab focused icon="{{playing? 'av:pause' : 'av:play-arrow'}}" on-click="{{audEvent}}"></paper-fab>
+      <audio>
+        <source src="{{mp3}}" type="audio/mp3">
+        <source src="{{ogg}}" type="audio/ogg">
+      </audio>
+  </template>
+  <script>
+    Polymer('audio-player', {
+      playing: false,
+      mp3: '',
+      ogg: '',
+      audEvent: function (event) {
+        var audio = this.shadowRoot.querySelector('audio');
+        console.log(audio);
+        if(audio.paused == true){
+          audio.play();
+          this.playing = true;
+        } else {
+          audio.pause();
+          this.playing = false;
+        }
+      }
+    });
+  </script>
+</polymer-element>

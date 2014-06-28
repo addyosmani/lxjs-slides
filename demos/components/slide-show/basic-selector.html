@@ -1,0 +1,33 @@
+<!--
+Extends core-selector to support reprojected content.
+
+This lets you include a content element within the selector and select the
+distributed nodes rather than the content element itself.
+
+@element basic-selector
+-->
+
+<link rel="import" href="../../../bower_components/core-selector/core-selector.html">
+<link rel="import" href="basic-element.html">
+
+<polymer-element name="basic-selector" extends="core-selector">
+<script>
+Polymer( "basic-selector", Platform.mixin( BasicWebComponents, {
+
+  // Override the basic items property so we can handle (re)distributed content.
+  // TODO: Handle selectors, etc., like base class' items can.
+  get items() {
+    return this.flattenChildren;
+  },
+
+  // Override the base implementation of selectedIndex to return -1 if nothing
+  // is selected, which seems more helpful.
+  // TODO: Handle valueattr: selected can indicate a value, not the index.
+  get selectedIndex() {
+    var index = this.selected;
+    return index || -1;
+  }
+  
+}));
+</script>
+</polymer-element>

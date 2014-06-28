@@ -1,0 +1,22 @@
+{
+  "name": "basic-sequence-navigator",
+  "description": "Lets user navigate previous/next through a sequence of child elements",
+  "version": "0.0.1",
+  "license": "MIT",
+  "main": "basic-sequence-navigator.html",
+  "dependencies": {
+    "basic-sequence": "basic-web-components/basic-sequence#master",
+    "core-icons": "Polymer/core-icons#master",
+    "polymer": "Polymer/polymer#master"
+  },
+  "dev-dependencies": {
+    "basic-framed-content": "basic-web-components/basic-framed-content#master"
+  },
+  "keywords": [
+    "basic-web-components",
+    "web-components"
+  ],
+  "ignore": [
+    "**/.*"
+  ]
+}

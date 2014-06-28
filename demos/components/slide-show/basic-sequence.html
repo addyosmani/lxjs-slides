@@ -1,0 +1,294 @@
+<!--
+A modal sequence of child elements with previous/next semantics and transition
+effects.
+
+This is a useful base class for slideshows, image carousels, and other cases
+where a sequence of items are shown. This extends the basic-modes base class to
+add the notion of moving to the next or previous item in a sequence.
+
+A small set of standard transition effects is included. You can define your own
+effects through CSS, especially CSS transitions.
+
+This component does not include UI controls or keyboard support for moving
+between items; you must supply such controls yourself. For a common pattern that
+lets a user navigate with next/previous buttons and arrow keys, see basic-
+sequence-navigator.
+
+@element basic-sequence
+@demo http://basic-web-components.github.io/components/basic-sequence/
+-->
+
+<link rel="import" href="basic-modes.html">
+
+<polymer-element name="basic-sequence" extends="basic-modes" attributes="canGoNext canGoPrevious wrapAround">
+
+<template>
+  
+  <style>
+  polyfill-next-selector {
+    content: '.core-selected';
+  }
+  ::content .core-selected {
+    position: relative; /* Helps effects that want to apply z-index. */
+  }
+
+  polyfill-next-selector {
+    content: ':not(.core-selected)';
+  }
+  ::content :not(.core-selected) {
+    display: block;
+    left: 0;
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+  }
+
+  /*
+   * The effectLayoutContainer and effectContainer work together to ensure that
+   * off stage elements are not visible outside the component's expected
+   * boundaries during transitions.
+   */
+  #effectLayoutContainer {
+    display: -webkit-flex;
+    display: flex;
+  }
+  #effectContainer {
+    display: block;
+    overflow: hidden;
+  }
+
+  /*
+   * HACK: For some reason, our :not(.core-selected) content styling defined
+   * above gets applied to the two special containers — even those things are
+   * in shadow, not in content. Until we can figure out why, force those the
+   * containers to be visible.
+   */
+  .specialContainer {
+    position: relative !important;
+    visibility: visible !important;
+  }
+
+  polyfill-next-selector {
+    content: '#effectContainer > .sequenceTransition';
+  }
+  ::content .sequenceTransition {
+    visibility: visible;
+  }
+
+  polyfill-next-selector {
+    content: '#effectContainer > *';
+  }
+  ::content > * {
+    display: block; /* Lets img/inline elements align better */
+    max-width: 100%; /* Helpful for responsive cases */
+  }
+  </style>
+  <link rel="stylesheet" href="basic-sequence-effects.css">
+
+  <div id="effectLayoutContainer" class="specialContainer">
+    <div id="effectContainer" class="specialContainer">
+      <shadow></shadow>
+    </div>
+  </div>
+
+</template>
+
+<script>
+Polymer( "basic-sequence", {
+
+  /**
+   * True if it there is at least one child after the active one.
+   * If wrapAround is set, this is always true.
+   *
+   * @property canGoNext
+   */
+  // TODO: This property and its companion canGoPrevious should be read-only,
+  // but it's not clear how to create a bindable, read-only property.
+  // See http://stackoverflow.com/questions/23900203/easiest-way-for-a-polymer-element-to-declare-a-bindable-property-with-a-getter-s.
+  canGoNext: false,
+  get _canGoNext() {
+    return ( this.wrapAround || this.selectedIndex + 1 < this.flattenChildren.length );
+  },
+
+  /**
+   * True if it there is at least one child after the active one. Read-only.
+   * If wrapAround is set, this is always true.
+   *
+   * @property canGoPrevious
+   */
+  // TODO: See note at canGoNext.
+  canGoPrevious: false,
+  get _canGoPrevious() {
+    return ( this.wrapAround || this.selectedIndex > 0 );
+  },
+
+  /**
+   * Move to the next child in the sequence of children.
+   * If the last child is already the active one being shown, this has no effect.
+   *
+   * @method next
+   */
+  next: function() {
+    var nextIndex = this.selectedIndex + 1;
+    if ( this.wrapAround ) {
+      this.selected = nextIndex % this.items.length;
+    } else if ( this.canGoNext ) {
+      this.selected = nextIndex;
+    }
+  },
+
+  publish: {
+    /**
+     * Determines the transition effect applied when moving to the next or
+     * previous item in the sequence. Standard supported effects are: "cover",
+     * "crossfade", "reveal", and "slide". By default, no effect is applied.
+     * New effects can be defined with CSS transitions.
+     *
+     * @property effect
+     */
+    effect: {
+      reflect: true
+    }
+  },
+
+  ready: function() {
+    this.addEventListener( "transitionend", function( event ) {
+      this._transitionComplete( event.target );
+    }.bind( this ));
+  },
+
+  selectedIndexChanged: function() {
+    this.super();
+    this._updateAbilities();
+    this._applyChildStyles();
+    this._transitionToIndex( this.selectedIndex );
+  },
+
+  /**
+   * Move to the previous child in the sequence of children.
+   * If the first child is already the active one being shown, this has no effect.
+   *
+   * @method previous
+   */
+  previous: function() {
+    var previousIndex = this.selectedIndex - 1;
+    if ( this.wrapAround ) {
+      if ( previousIndex < 0 ) {
+        previousIndex = this.items.length - 1;
+      }
+      this.selected = previousIndex;
+    } else if ( this.canGoPrevious ) {
+      this.selected = previousIndex;
+    }
+  },
+
+  /**
+   * If false (the default), the sequence ends at the last item. If true, the
+   * sequence wraps around: moving next from the last item navigates to the
+   * first, and moving previous from the first item navigates to the last.
+   */
+  wrapAround: undefined,
+
+  wrapAroundChanged: function() {
+    this._updateAbilities();
+    this._applyChildStyles();
+  },
+
+  /*
+   * Decorate each child with styles so that it can be ready to transition.
+   */
+  _applyChildStyles: function() {
+    var selectedIndex = this.selectedIndex;
+    var items = this.items;
+    var itemsLength = items.length;
+    Array.prototype.forEach.call( items, function( item, index ) {
+      var onStage = ( index === selectedIndex );
+      item.classList.toggle( "onStage", onStage );
+      item.classList.toggle( "offStage", !onStage );
+      if ( !onStage ) {
+        var isAhead = this._isAhead( selectedIndex, index, itemsLength );
+        item.classList.toggle( "offStagePrevious", !isAhead );
+        item.classList.toggle( "offStageNext", isAhead );        
+      }
+    }.bind( this ));
+  },
+
+  /*
+   * Return true if we navigate forward to go from oldIndex to newIndex, false
+   * if we navigate backward.
+   */
+  _isAhead: function( oldIndex, newIndex, itemsLength ) {
+    var isAhead = oldIndex < newIndex;
+    var lastItemIndex = itemsLength - 1;
+    if ( this.wrapAround && itemsLength > 2 ) {
+      if ( oldIndex === lastItemIndex && newIndex === 0 ) {
+        // Will wrap to first item, so that's considered to be "ahead".
+        isAhead = true;
+      } else if ( oldIndex === 0 && newIndex === lastItemIndex ) {
+        // Will wrap to last item, so that's considered to be "behind".
+        isAhead = false;
+      }
+    }
+    return isAhead;
+  },
+
+  _previousSelectionIndex: null,
+
+  _transitionComplete: function( element ) {
+    element.classList.remove( "sequenceTransition" );
+    element.classList.remove( "enteringStage" );
+    element.classList.remove( "enteringStageFromNext" );
+    element.classList.remove( "enteringStageFromPrevious" );
+    element.classList.remove( "leavingStage" );
+    element.classList.remove( "leavingStageToNext" );
+    element.classList.remove( "leavingStageToPrevious" );
+  },
+
+  _transitionToIndex: function( newIndex ) {
+
+    var oldIndex = this._previousSelectionIndex;
+    this._previousSelectionIndex = newIndex;
+    if ( oldIndex == null ) {
+      // First time selecting, no slide necessary.
+      return;
+    }
+    if ( newIndex === oldIndex ) {
+      // We shouldn't have received an event in this case, but just in case...
+      return;
+    }
+
+    var items = this.items;
+    var movingForward = this._isAhead( oldIndex, newIndex, items.length );
+    var oldItem = items[ oldIndex ];
+
+    oldItem.classList.remove( "onStage" );
+    oldItem.classList.add( "offStage" );
+    oldItem.classList.add( movingForward ? "offStagePrevious" : "offStageNext" );
+
+    var newItem = items[ newIndex ];
+    newItem.classList.remove( "offStage" );
+    newItem.classList.remove( "offStagePrevious" );
+    newItem.classList.remove( "offStageNext" );
+    newItem.classList.add( "onStage" );
+
+    if ( this.effect != null && this.effect !== "" ) {
+      // Start transition.
+      oldItem.classList.add( "sequenceTransition" );
+      oldItem.classList.add( "leavingStage" );
+      oldItem.classList.add( movingForward ? "leavingStageToPrevious": "leavingStageToNext" );
+      newItem.classList.add( "sequenceTransition" );
+      newItem.classList.add( "enteringStage" );
+      newItem.classList.add( movingForward ? "enteringStageFromNext" : "enteringStageFromPrevious" );
+    }
+  },
+
+  /* Can drop this once we have bindable, read-only properties */
+  _updateAbilities: function() {
+    this.canGoNext = this._canGoNext;
+    this.canGoPrevious = this._canGoPrevious;    
+  }
+
+});
+</script>
+
+</polymer-element>

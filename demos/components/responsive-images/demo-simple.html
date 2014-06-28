@@ -1,0 +1,40 @@
+<html>
+	<head>
+    <script src="../../../bower_components/platform/platform.js"></script>
+    <link rel="import" href="../../../bower_components/core-media-query/core-media-query.html" />
+
+	</head>
+	<body>
+  <polymer-element name="match-example" noscript>
+    <template>
+      <style>
+      :host{ font-size: 100px; font-family: 'Roboto'; };
+      </style>
+      <core-media-query query="max-width: 40em" queryMatches="{{phone}}"></core-media-query>
+
+      <core-media-query query="(min-width: 40.063em) and (max-width: 64em)" queryMatches="{{tablet}}"></core-media-query>
+
+      <core-media-query query="(min-width: 64.063em) and (max-width: 90em)" queryMatches="{{desktop}}"></core-media-query>
+
+      <core-media-query query="(min-width: 90.063em) and (max-width: 120em)" queryMatches="{{largescreen}}"></core-media-query>
+
+      <template if="{{phone}}">
+      Phone
+      </template>
+
+      <template if="{{tablet}}">
+      Tablet
+      </template>
+
+      <template if="{{desktop || largescreen}}">
+      Desktop
+      </template>
+
+    </template>
+  </polymer-element>
+
+  <match-example id="me"></match-example>
+  <pre id="output">
+  </pre>
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Horizontal and vertical layout</title>
+<script src="../../../bower_components/platform/platform.js"></script>
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../../bower_components/polymer/layout.html">
+
+<style>
+.demo {
+  background-color: #ccc;
+  padding: 4px;
+  margin: 12px;
+}
+
+.demo div {
+  background-color: white;
+  padding: 12px;
+  margin: 4px;
+}
+
+.tall {
+  height: 124px;
+}
+
+.demo[vertical] {
+  height: 250px;
+}
+
+demo-tabs::shadow #results {
+  width: 40%;
+  max-width: initial;
+}
+</style>
+
+</head>
+<body>
+<h2>Horizontal and vertical layout</h2>
+
+<p>When a container includes the <code>layout</code> attribute, it can become a flex container.
+You can specify <code>horizontal</code>, <code>vertical</code> to change the orientation:</p>
+
+<pre><code>&lt;div horizontal layout&gt;
+  &lt;div&gt;One&lt;/div&gt;
+  &lt;div&gt;Two&lt;/div&gt;
+  &lt;div&gt;Three&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+<div horizontal layout class="demo">
+  <div>One</div>
+  <div>Two</div>
+  <div>Three</div>
+</div>
+
+
+<h3>Flexible children</h3>
+
+<p>Children of an element using the <code>layout</code> attribute can use <code>flex</code> attributes to control their own sizing. For example:</p>
+
+<pre><code>&lt;div horizontal layout&gt;
+  &lt;div&gt;Alpha&lt;/div&gt;
+  &lt;div flex&gt;Beta (flex)&lt;/div&gt;
+  &lt;div&gt;Gamma&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+<div horizontal layout class="demo">
+  <div>Alpha</div>
+  <div flex>Beta (flex)</div>
+  <div>Gamma</div>
+</div>
+
+
+<p>The same is true for children of <code>vertical</code> elements:</p>
+
+<pre><code>&lt;div vertical layout&gt;
+  &lt;div&gt;Alpha&lt;/div&gt;
+  &lt;div flex&gt;Beta (flex)&lt;/div&gt;
+  &lt;div&gt;Gamma&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+<div vertical layout class="demo">
+  <div>Alpha</div>
+  <div flex>Beta (flex)</div>
+  <div>Gamma</div>
+</div>
+
+
+<p>Children elements can be told to take up more space by including a "flex ratio" with the <code>flex</code> atribute. A flex ratio is specified with a number string: <em>one</em>, <em>two</em>, <em>three</em>, currently up to <em>twelve</em>.</p>
+
+<p>For example, to make "Gamma" 2x larger than "Beta" and "Alpha" 3x larger, use <code>flex two</code> and <code>flex three</code>, respectively:</p>
+
+<pre><code>&lt;div horizontal layout&gt;
+  &lt;div flex three&gt;Alpha&lt;/div&gt;
+  &lt;div&gt;Beta&lt;/div&gt;
+  &lt;div flex two&gt;Gamma&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+<div horizontal layout class="demo">
+  <div flex three>Alpha</div>
+  <div>Beta</div>
+  <div flex two>Gamma</div>
+</div>
+
+
+<h3>Cross-axis alignment</h3>
+
+<p>By default, children stretch to fit the cross-axis (e.g. <em>vertical</em> stretching in a <em>horizontal</em> layout).</p>
+
+<pre><code>&lt;div horizontal layout&gt;
+  &lt;div&gt;Stretch Fill&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+<div horizontal layout class="demo tall">
+  <div>Stretch Fill</div>
+</div>
+
+
+<p>Center <em>across</em> the main axis (e.g. <em>vertical</em> centering elements in a <em>horizontal</em> layout)
+by adding <code>center</code>.</p>
+
+<pre><code>&lt;div horizontal layout center&gt;
+  &lt;div&gt;Center&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+<div horizontal layout center class="demo tall">
+  <div>Center</div>
+</div>
+
+
+<p>You can also position at the top/bottom (or left/right in <code>vertical</code> layouts) using <code>start</code> or <code>end</code>.</p>
+
+<pre><code>&lt;div horizontal layout start&gt;
+  &lt;div&gt;start&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+<div horizontal layout start class="demo tall">
+  <div>start</div>
+</div>
+
+
+<pre><code>&lt;div horizontal layout end&gt;
+  &lt;div&gt;end&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+<div horizontal layout end class="demo tall">
+  <div>end</div>
+</div>
+
+
+<h2>Justification</h2>
+
+<p>Justifying content is done with the <code>*-justified</code> attributes.</p>
+
+<p><strong>Example</strong> - start justified</p>
+
+<pre><code>&lt;div horizontal start-justified layout&gt;
+  &lt;div&gt;start-justified&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+<div horizontal start-justified layout class="demo">
+  <div>start-justified</div>
+</div>
+
+
+<p><strong>Example</strong> - center justified</p>
+
+<pre><code>&lt;div horizontal center-justified layout&gt;
+  &lt;div&gt;center-justified&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+<div horizontal center-justified layout class="demo">
+  <div>center-justified</div>
+</div>
+
+
+<p><strong>Example</strong> - end justified</p>
+
+<pre><code>&lt;div horizontal end-justified layout&gt;
+  &lt;div&gt;end-justified&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+<div horizontal end-justified layout class="demo">
+  <div>end-justified</div>
+</div>
+
+
+<p><strong>Example</strong> - equal space between each element</p>
+
+<pre><code>&lt;div horizontal justified layout&gt;
+  &lt;div&gt;justified&lt;/div&gt;
+  &lt;div&gt;justified&lt;/div&gt;
+  &lt;div&gt;justified&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+<div horizontal justified layout class="demo">
+  <div>justified</div>
+  <div>justified</div>
+  <div>justified</div>
+</div>
+
+
+<p><strong>Example</strong> - equal space around each element</p>
+
+<pre><code>&lt;div horizontal around-justified layout&gt;
+  &lt;div&gt;around-justified&lt;/div&gt;
+  &lt;div&gt;around-justified&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+<div horizontal around-justified layout class="demo">
+  <div>around-justified</div>
+  <div>around-justified</div>
+</div>
+
+
+<h2>Self alignment</h2>
+
+<p>Alignment can also be set per-child (instead of using the layout containers rules):</p>
+
+<pre><code>&lt;div horizontal layout&gt;
+  &lt;div flex self-start&gt;Alpha&lt;/div&gt;
+  &lt;div flex self-center&gt;Beta&lt;/div&gt;
+  &lt;div flex self-end&gt;Gamma&lt;/div&gt;
+  &lt;div flex self-stretch&gt;Delta&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+<div horizontal layout class="demo tall">
+  <div flex self-start>Alpha</div>
+  <div flex self-center>Beta</div>
+  <div flex self-end>Gamma</div>
+  <div flex self-stretch>Delta</div>
+</div>
+
+
+<h2>Wrapping</h2>
+
+<p>Wrapped layouts can be enabled with the <code>wrap</code> attribute.</p>
+
+<pre><code>&lt;div horizontal layout wrap style="width: 220px"&gt;
+  &lt;div&gt;Alpha&lt;/div&gt;
+  &lt;div&gt;Beta&lt;/div&gt;
+  &lt;div&gt;Gamma&lt;/div&gt;
+  &lt;div&gt;Delta&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+<div horizontal layout wrap style="width: 220px" class="demo">
+  <div>Alpha</div>
+  <div>Beta</div>
+  <div>Gamma</div>
+  <div>Delta</div>
+</div>
+
+
+<p>Layout direction can be mirrored with the <code>reverse</code> attribute.</p>
+
+<pre><code>&lt;div horizontal layout reverse&gt;
+  &lt;div&gt;Alpha&lt;/div&gt;
+  &lt;div&gt;Beta&lt;/div&gt;
+  &lt;div&gt;Gamma&lt;/div&gt;
+  &lt;div&gt;Delta&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+<div horizontal layout reverse class="demo">
+  <div>Alpha</div>
+  <div>Beta</div>
+  <div>Gamma</div>
+  <div>Delta</div>
+</div>
+
+
+<h2>General purpose attributes</h2>
+
+<p>Polymer also includes other general purpose attributes for basic positioning:</p>
+
+<table>
+<thead>
+<tr>
+<th>Attribute </th>
+<th> Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>block</code></td>
+<td> Assigns <code>display: block</code></td>
+</tr>
+<tr>
+<td><code>hidden</code> </td>
+<td> Assigns <code>display: none</code></td>
+</tr>
+<tr>
+<td><code>relative</code> </td>
+<td> Assigns <code>position: relative</code></td>
+</tr>
+<tr>
+<td><code>fit</code> </td>
+<td> Sets <code>position: absolute</code> and sets <code>top:0;right:0;bottom:0;left:0;</code> (aka "trbl fitting"). <br><br><strong>Note:</strong> When using the <code>fit</code> attribute, there must be a container with fixed size and has <code>position: relative</code> layout. This is so the children know where to fit to.</td>
+</tr>
+</tbody>
+</table>
+
+
+<p><strong>Examples</strong></p>
+
+<pre><code>&lt;div&gt;Before &lt;span&gt;[A Span]&lt;/span&gt; After&lt;/div&gt;
+
+&lt;div&gt;Before &lt;span block&gt;A Block Span&lt;/span&gt; After&lt;/div&gt;
+&lt;div&gt;Hidden: &lt;span hidden&gt;Not displayed&lt;/span&gt;&lt;/div&gt;
+&lt;div relative style="height: 100px;"&gt;
+  &lt;div fit style="background-color: #000;color: white"&gt;Fit&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+<div class="demo">Before <span>[A Span]</span> After</div>
+
+
+<div class="demo">Before <span block>[A Block Span]</span> After</div>
+
+
+<div class="demo">Hidden: <span hidden>Not displayed</span></div>
+
+
+<div relative style="height: 100px;" class="demo">
+  <div fit style="background-color: #000;color: white">Fit</div>
+</div>
+
+</body>
+</html>

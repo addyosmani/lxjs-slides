@@ -1,0 +1,39 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+<polymer-element name="my-element" noscript>
+<template>
+    <style>
+        :host {
+          background: white;
+          width: 600px;
+          padding: 20px;
+          border: 1px solid black;
+          margin-bottom: 10px;
+          display: block;
+          font-size: 2em;
+        }
+      
+        p {
+            color: red;
+        }
+
+        #message {
+            color: purple;
+        }
+
+        .important {
+            color: green;
+        }
+    </style>
+    <h1>Inside the element</h1>
+    <p>Paragraphs should be red</p>
+
+    <div id="message">
+        Messages should be purple
+    </div>
+
+    <div class="important">
+        Important bits should be green
+    </div>
+</template>
+</polymer-element>
+

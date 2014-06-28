@@ -1,0 +1,36 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+
+<polymer-element name="x-blink">
+  <template>
+    <style>
+      :host {
+        -webkit-animation: blink 1s cubic-bezier(1.0,0,0,1.0) infinite 1s;
+      }
+
+      @keyframes blink {  
+          0% { color: white; }
+          100% { color: black; }
+      }
+      @-webkit-keyframes blink {
+          0% { color: white; }
+          100% { color: black; }
+      }
+      x-blink {
+          -webkit-animation: blink 1s linear infinite;
+          -moz-animation: blink 1s linear infinite;
+          -ms-animation: blink 1s linear infinite;
+          -o-animation: blink 1s linear infinite;
+          animation: blink 1s linear infinite;
+          margin:0 auto;
+      } 
+    </style>
+    <content><pre>&lt;x-blink></pre></content>
+  </template>
+  <script>
+  Polymer('x-blink', {
+    ready: function(){
+
+    }
+  });
+  </script>
+</polymer-element>

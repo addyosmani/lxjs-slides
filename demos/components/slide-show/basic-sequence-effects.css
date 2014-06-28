@@ -1,0 +1,152 @@
+/*
+ * Transition effects.
+ *
+ * In general, the effect of going backward should be like replaying the forward
+ * effect in reverse. Effect names describe what happens when going forward.
+ */
+
+
+/*
+ * Cover going forward, reveal going backwards.
+ * The effect is like starting with one card, then piling on more.
+ */
+polyfill-next-selector {
+  content: ':host([effect=cover]) #effectContainer > .sequenceTransition';
+}
+:host([effect=cover]) ::content .sequenceTransition {
+  transition: -webkit-transform 0.3s;  /* Safari */
+  transition: transform 0.3s;
+}
+
+polyfill-next-selector {
+  content: ':host([effect=cover]) #effectContainer > .offStagePrevious';
+}
+:host([effect=cover]) ::content .offStagePrevious {
+  -webkit-transform: translateX(0.01px);  /* Safari */
+  transform: translateX(0.01px);
+}
+
+polyfill-next-selector {
+  content: ':host([effect=cover]) #effectContainer > .offStageNext';
+}
+:host([effect=cover]) ::content .offStageNext {
+  -webkit-transform: translateX(100%);  /* Safari */
+  transform: translateX(100%);
+}
+
+polyfill-next-selector {
+  content: ':host([effect=cover]) #effectContainer > .enteringStageFromNext, :host([effect=cover]) #effectContainer > .leavingStageToNext';
+}
+:host([effect=cover]) ::content .enteringStageFromNext,
+:host([effect=cover]) ::content .leavingStageToNext {
+  z-index: 1;
+}
+
+
+/* A simple crossfade */
+polyfill-next-selector {
+  content: ':host([effect=crossfade]) #effectContainer > .sequenceTransition';
+}
+:host([effect=crossfade]) ::content .sequenceTransition {
+  transition: opacity 0.8s;
+}
+
+polyfill-next-selector {
+  content: ':host([effect=crossfade]) #effectContainer > .offStage';
+}
+:host([effect=crossfade]) ::content .offStage {
+  opacity: 0;
+}
+
+polyfill-next-selector {
+  content: ':host([effect=crossfade]) #effectContainer > .sequenceTransition.offStage';
+}
+:host([effect=crossfade]) ::content .sequenceTransition.offStage {
+  opacity: 0.99;
+}
+
+polyfill-next-selector {
+  content: ':host([effect=crossfade]) #effectContainer > .core-selected';
+}
+:host([effect=crossfade]) ::content .core-selected {
+  opacity: 1;
+}
+
+polyfill-next-selector {
+  content: ':host([effect=crossfade]) #effectContainer > .enteringStage';
+}
+:host([effect=crossfade]) ::content .enteringStage {
+  z-index: 1;
+}
+
+
+/*
+ * Reveal going forward, cover going backwards.
+ * The effect is like starting with a complete a deck of cards, the removing
+ * cards to show more.
+ */
+polyfill-next-selector {
+  content: ':host([effect=reveal]) #effectContainer > .sequenceTransition';
+}
+:host([effect=reveal]) ::content .sequenceTransition {
+  transition: -webkit-transform 0.3s;  /* Safari */
+  transition: transform 0.3s;
+}
+
+polyfill-next-selector {
+  content: ':host([effect=reveal]) #effectContainer > .offStagePrevious';
+}
+:host([effect=reveal]) ::content .offStagePrevious {
+  -webkit-transform: translateX(-100%);  /* Safari */
+  transform: translateX(-100%);
+}
+
+polyfill-next-selector {
+  content: ':host([effect=reveal]) #effectContainer > .offStageNext';
+}
+:host([effect=reveal]) ::content .offStageNext {
+  -webkit-transform: translateX(0.01px);  /* Safari */
+  transform: translateX(0.01px);
+}
+
+polyfill-next-selector {
+  content: ':host([effect=reveal]) #effectContainer > .enteringStageFromPrevious, :host([effect=reveal]) #effectContainer > .leavingStageToPrevious';
+}
+:host([effect=reveal]) ::content .enteringStageFromPrevious,
+:host([effect=reveal]) ::content .leavingStageToPrevious {
+  z-index: 1;
+}
+
+
+/* Incoming element pushes out outgoing element */
+polyfill-next-selector {
+  content: ':host([effect=slide]) #effectContainer > .sequenceTransition';
+}
+:host([effect=slide]) ::content .sequenceTransition {
+  transition: -webkit-transform 0.3s; /* Safari */
+  transition: transform 0.3s;
+}
+
+polyfill-next-selector {
+  content: ':host([effect=slide]) #effectContainer > .offStagePrevious';
+}
+:host([effect=slide]) ::content .offStagePrevious {
+  -webkit-transform: translateX(-100%); /* Safari */
+  transform: translateX(-100%);
+}
+
+polyfill-next-selector {
+  content: ':host([effect=slide]) #effectContainer > .offStageNext';
+}
+:host([effect=slide]) ::content .offStageNext {
+  -webkit-transform: translateX(100%); /* Safari */
+  transform: translateX(100%);
+}
+
+polyfill-next-selector {
+  content: ':host([effect=slide]) #effectContainer > .onStage';
+}
+:host([effect=slide]) ::content .onStage {
+  -webkit-transform: translateX(0);  /* Safari */
+  transform: translateX(0);
+}
